@@ -1,15 +1,12 @@
 module Main where
 
-import Data.List (sort)
+import Data.List
 
 correctPair :: (String,String) -> Bool
 correctPair (lhs,rhs) = 1 == (length $ filter (==True) $ zipWith (/=) lhs rhs)
 
 sharedLetters :: (String,String) -> String
-sharedLetters ([],[]) = []
-sharedLetters ((x:xs),(y:ys))
-    | x /= y = sharedLetters (xs,ys)
-    | otherwise = x:(sharedLetters (xs,ys))
+sharedLetters (lhs,rhs) = lhs \\ (lhs \\ rhs)
 
 main :: IO ()
 main = do
