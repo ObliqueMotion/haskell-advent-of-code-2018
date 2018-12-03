@@ -1,11 +1,11 @@
 module Main where
+import Data.List
 
 parseInt :: String -> Int
-parseInt ('+':digits) = read digits :: Int
-parseInt x = read x :: Int
+parseInt x = read $ (x \\ "+") :: Int
 
 changeInFrequency :: [String] -> Int
-changeInFrequency = foldl (+) 0 . map parseInt
+changeInFrequency = sum . map parseInt
 
 main :: IO ()
 main = do
