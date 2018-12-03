@@ -3,7 +3,7 @@
 
 name:                part1
 version:             0.1.0.0
-synopsis:            Advent of Code 2018 Day 2 Part 1
+synopsis:            Advent of Code 2018 Day2 Part1
 -- description:         
 license:             BSD3
 license-file:        LICENSE
@@ -16,7 +16,7 @@ extra-source-files:  ChangeLog.md
 cabal-version:       >=1.10
 
 executable part1
-  main-is:             Main.hs
+  main-is:             main.hs
   -- other-modules:       
   -- other-extensions:    
   build-depends:       base >=4.9 && <4.10

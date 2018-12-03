@@ -16,6 +16,6 @@ firstReachedTwice changeList = scan changeList (fromList [0]) 0
 
 main :: IO ()
 main = do
-    input <- (readFile "files/input")
+    input <- (readFile "../input")
     let changeList = Prelude.map parseInt $ lines input
     print $ firstReachedTwice (cycle changeList)

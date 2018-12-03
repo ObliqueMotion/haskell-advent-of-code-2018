@@ -39,6 +39,6 @@ uniqueClaims = reverse . nubBy (overlap) . reverse
 
 main :: IO ()
 main = do
-    input <- (readFile "files/input")
+    input <- (readFile "../input")
     let claims = zip [id | id <- [1..]] $ map parseClaim $ map words $ lines input
     print $ map fst $ filter (\claim -> all (not . overlap claim) (claims \\ [claim])) claims
