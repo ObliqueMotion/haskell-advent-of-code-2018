@@ -4,11 +4,8 @@ import Data.List
 parseInt :: String -> Int
 parseInt x = read $ (x \\ "+") :: Int
 
-changeInFrequency :: [String] -> Int
-changeInFrequency = sum . map parseInt
-
 main :: IO ()
 main = do
     input <- (readFile "../input")
-    let changes = lines input
-    print $ changeInFrequency changes
+    let changeList = lines input
+    print $ sum $ map parseInt changeList
