@@ -1,10 +1,9 @@
 module Main where
-
 import Data.HashSet
+import qualified Data.List as L
 
-parseInt :: String -> Int
-parseInt ('+':digits) = read digits :: Int
-parseInt x = read x :: Int
+parseInt :: String -> Int 
+parseInt x = read $ (x L.\\ "+") :: Int 
 
 firstReachedTwice :: [Int] -> Int
 firstReachedTwice changeList = scan changeList (fromList [0]) 0
