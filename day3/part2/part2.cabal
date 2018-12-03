@@ -1,6 +1,6 @@
-name:                aoc2018-day3-part1
+name:                aoc2018-day3-part2
 version:             0.1.0.0
-synopsis:            Advent of Code 2018 Day3 Part1
+synopsis:            Advent of Code 2018 Day3 Part2
 author:              Erik Nordin
 build-type:          Simple
 cabal-version:       >=1.10
