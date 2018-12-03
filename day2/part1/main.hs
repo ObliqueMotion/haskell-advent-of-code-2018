@@ -7,7 +7,7 @@ contains frequency = any (== frequency) . map length . group . sort
 
 main :: IO ()
 main = do
-    input <- (readFile "files/input")
+    input <- (readFile "../input")
     let ids = lines input
     let pair = 2
     let triple = 3

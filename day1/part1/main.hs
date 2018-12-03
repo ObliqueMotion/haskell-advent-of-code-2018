@@ -9,6 +9,6 @@ changeInFrequency = foldl (+) 0 . map parseInt
 
 main :: IO ()
 main = do
-    input <- (readFile "files/input")
+    input <- (readFile "../input")
     let changes = lines input
     print $ changeInFrequency changes

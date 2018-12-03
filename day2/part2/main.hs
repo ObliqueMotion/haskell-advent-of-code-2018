@@ -10,7 +10,7 @@ sharedLetters (lhs,rhs) = lhs \\ (lhs \\ rhs)
 
 main :: IO ()
 main = do
-    input <- (readFile "files/input")
+    input <- (readFile "../input")
     let ids = sort $ lines input
     let idPairs = zip ids (tail ids)
     print $ map sharedLetters $ filter correctPair idPairs

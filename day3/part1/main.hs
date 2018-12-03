@@ -29,7 +29,7 @@ expandClaim [(xStart,yStart),(xOffset,yOffset)] = [(x,y) | x <- xs, y <- ys]
 
 main :: IO ()
 main = do
-    input <- (readFile "files/input")
+    input <- (readFile "../input")
     let claims = concat $ map expandClaim $ map parseClaim $ map words $ lines input
     let overLappingSquares = filter ((>1) . length) $ group $ sort claims
     print $ length overLappingSquares
