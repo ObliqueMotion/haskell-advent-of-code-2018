@@ -19,14 +19,6 @@ parseDimensions (_:_:_:dimensions:_) = toTuple $ splitOn "x" dimensions
 parseClaim :: [String] -> [(Int,Int)]
 parseClaim claim = [parseStartIndex claim, parseDimensions claim]
 
--- Example: [(2, 5), (2,3)] -> [(3,6), (4,6), (3,7), (4,7), (3,8), (4,8)]
-expandClaim :: [(Int,Int)] -> [(Int,Int)]
-expandClaim [] = []
-expandClaim [(xStart,yStart),(xOffset,yOffset)] = [(x,y) | x <- xs, y <- ys]
-    where
-    xs = map (+xStart) [1..xOffset]
-    ys = map (+yStart) [1..yOffset]
-
 (_,[(x1,y1),(xOffset1,yOffset1)]) `overlap` (_,[(x2,y2),(xOffset2,yOffset2)]) 
         | x1 > x2+xOffset2 = False
         | y1 > y2+yOffset2 = False
