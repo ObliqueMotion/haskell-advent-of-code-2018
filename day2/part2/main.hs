@@ -1,5 +1,4 @@
 module Main where
-
 import Data.List
 
 correctPair :: (String,String) -> Bool

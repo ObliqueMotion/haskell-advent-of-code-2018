@@ -1,6 +1,6 @@
 module Main where
 import Data.List
-
+ 
 parseInt :: String -> Int
 parseInt x = read $ (x \\ "+") :: Int
 
