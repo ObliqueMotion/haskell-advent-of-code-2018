@@ -1,5 +1,4 @@
 module Main where
-
 import Data.List
 import Data.List.Split
 
@@ -7,15 +6,15 @@ import Data.List.Split
 toTuple :: [String] -> (Int,Int)
 toTuple [x,y] = ((read x::Int),(read y::Int))
 
--- Example "123,987:" -> (123,987)
+-- Example ["#7","@","49,222:","19x20"] -> (49,222)
 parseStartIndex :: [String] -> (Int,Int)
 parseStartIndex (_:_:index:_) = toTuple $ splitOn "," $ index \\ ":"
 
--- Example "123x987" -> (123,987)
+-- Example ["#7","@","49,222:","19x20"] -> (19,20)
 parseDimensions :: [String] -> (Int,Int)
 parseDimensions (_:_:_:dimensions:_) = toTuple $ splitOn "x" dimensions
 
--- Example ["#1","@","49,222:","19x20"] -> [(49,222), (19,20)]
+-- Example ["#7","@","49,222:","19x20"] -> [(49,222), (19,20)]
 parseClaim :: [String] -> [(Int,Int)]
 parseClaim claim = [parseStartIndex claim, parseDimensions claim]
 

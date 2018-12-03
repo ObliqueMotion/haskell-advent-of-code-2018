@@ -1,5 +1,4 @@
 module Main where
-
 import Data.List
 import Data.List.Split
 
@@ -19,7 +18,7 @@ parseDimensions (_:_:_:dimensions:_) = toTuple $ splitOn "x" dimensions
 parseId :: [String] -> Int
 parseId (id:_) = read (id \\ "#")
 
--- Example ["#1","@","49,222:","19x20"] -> (1, [(49,222), (19,20)])
+-- Example ["#7","@","49,222:","19x20"] -> (7, [(49,222), (19,20)])
 parseClaim :: [String] -> (Int,[(Int,Int)])
 parseClaim claim = (parseId claim, [parseStartIndex claim, parseDimensions claim])
 

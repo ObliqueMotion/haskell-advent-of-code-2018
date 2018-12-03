@@ -1,7 +1,7 @@
 module Main where
 import Data.HashSet
 import qualified Data.List as L
-
+ 
 parseInt :: String -> Int 
 parseInt x = read $ (x L.\\ "+") :: Int 
 
