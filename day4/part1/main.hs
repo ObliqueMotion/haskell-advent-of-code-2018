@@ -3,8 +3,8 @@ import Data.List
 import Data.List.Split
 
 maxTime = 60
-awakes   = (repeat 0)
-asleeps  = (repeat 1)
+awakes  = (repeat 0)
+asleeps = (repeat 1)
 
 data LogType = GuardId | Awake | Asleep deriving (Eq,Show)
 
