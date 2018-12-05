@@ -3,8 +3,8 @@ import Data.List
 import Data.List.Split
 
 maxTime = 60
-awakes   = (repeat 0)
-asleeps  = (repeat 1)
+awakes  = (repeat 0)
+asleeps = (repeat 1)
 
 data LogType = GuardId | Awake | Asleep deriving (Eq,Show)
 
@@ -13,14 +13,15 @@ parseId log = read $ tail ((words log) !! 3) ::Int
 
 parseLog :: String -> (Int,LogType)
 parseLog log
-    | startsShift log = (parseId   log, GuardId)
-    | fallsAsleep log = (parseTime log, Asleep)
-    | wakesUp     log = (parseTime log, Awake)
-    where startsShift = isInfixOf "begins shift"
-          fallsAsleep = isInfixOf "falls asleep"
-          wakesUp     = isInfixOf "wakes up"
+    | startsShift = (parseId   log, GuardId)
+    | fallsAsleep = (parseTime log, Asleep)
+    | wakesUp     = (parseTime log, Awake)
+    where startsShift = isInfixOf "begins shift" log
+          fallsAsleep = isInfixOf "falls asleep" log
+          wakesUp     = isInfixOf "wakes up"     log
 
-data Record  = Record Int [Int] deriving (Show)
+data Record = Record Int [Int] deriving (Show)
+
 instance Eq Record where
     (Record id1 _) == (Record id2 _) = id1 == id2
 instance Ord Record where
@@ -33,14 +34,14 @@ totalTime :: Record -> Int
 totalTime (Record guardId timeline) = (length timeline)
 
 appendTime :: Record -> [Int] -> Record
-appendTime (Record guardId timeline) logValues = Record guardId (timeline ++ logValues)
+appendTime (Record guardId timeline) time = Record guardId (timeline ++ time)
 
 complete :: Record -> Record
 complete (Record guardId []) = (Record guardId (take maxTime awakes))
 complete (Record guardId timeline)
     | (length timeline) == maxTime = (Record guardId timeline)
-    | otherwise = (Record guardId $ timeline ++ rest)
-    where rest = take (maxTime - (length timeline)) $ repeat $ opposite
+    | otherwise = (Record guardId $ timeline ++ time)
+    where time = take (maxTime - (length timeline)) $ repeat $ opposite
           opposite = (1 + (last timeline)) `mod` 2
 
 combine :: Record -> Record -> Record
@@ -61,14 +62,14 @@ parseTime log
 parseRecords :: [Record] -> [(Int,LogType)] -> [Record]
 parseRecords (record:records) [] = (complete record:records)
 parseRecords [] ((guardId,_):logs) = parseRecords [newRecord guardId] logs
-parseRecords records ((logValue, logType):logs)
+parseRecords records ((logTime, logType):logs)
     | logType == Awake  = parseRecords (record `appendTime` timeInactive:(tail records))        logs
     | logType == Asleep = parseRecords (record `appendTime` timeActive:(tail records))          logs
-    | otherwise         = parseRecords ((newRecord logValue):(complete record):(tail records))  logs
+    | otherwise         = parseRecords ((newRecord logTime):(complete record):(tail records))  logs
     where record        = head records
           timeActive    = take elapsedTime $ awakes
           timeInactive  = take elapsedTime $ asleeps
-          elapsedTime   = logValue - (totalTime record)
+          elapsedTime   = logTime - (totalTime record)
 
 main :: IO ()
 main = do
