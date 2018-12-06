@@ -6,10 +6,10 @@ reactsWith x y = (toUpper x == toUpper y) && x /= y
 
 fullyReact :: String -> String
 fullyReact = foldr react []
-  where react x (y:ys)
+    where react x [] = [x]
+          react x (y:ys)
             | x `reactsWith` y = ys
             | otherwise = (x:y:ys)
-        react x [] = [x]
 
 main :: IO ()
 main = do
