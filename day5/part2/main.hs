@@ -17,8 +17,10 @@ fullyReact :: String -> String
 fullyReact polymer = fst $ head $ dropWhile (reducible) $ iterate react (polymer,MaybeReducible)
     where reducible = (==MaybeReducible) . snd
 
+removeUnitFrom :: String -> Char -> String
+removeUnitFrom polymer unit = filter (\u -> (toLower u) /= unit) polymer
+
 main :: IO ()
 main = do
     polymer <- (readFile "../input")
-    print $ length polymer
-    print $ length $ fullyReact polymer
+    mapM_ print $ zip ['a'..'z'] $ map (length . fullyReact . (removeUnitFrom polymer)) ['a'..'z'] 
