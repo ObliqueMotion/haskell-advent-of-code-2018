@@ -34,7 +34,7 @@ gridContainingAll points = [(x,y) | x <- [xMin..xMax], y <- [yMin..yMax]]
           ys   = map snd points
 
 distanceFrom :: (Int,Int) -> (Int,Int) -> Int
-distanceFrom (x,y) (a,b) = (abs(x-a) + abs(y-b))
+distanceFrom (x1,y1) (x2,y2) = (abs(x1-x2) + abs(y1-y2))
 
 closest :: [(Int,Int)] -> (Int,Int) -> [(Int,Int)]
 closest points target = head $ groupBy ((==) `on` (distanceFrom target)) $ sortBy (comparing (distanceFrom target)) points
