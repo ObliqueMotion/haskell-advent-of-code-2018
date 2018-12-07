@@ -36,5 +36,5 @@ parseClaim claim = (id, [index, dimensions])
 main :: IO ()
 main = do
     input <- (readFile "../input")
-    let claims = map parseClaim $ map words $ lines input
+    let claims = map (parseClaim . words) $ lines input
     print $ map fst $ filter (\claim -> all (not . overlaps claim) (claims \\ [claim])) claims
