@@ -63,9 +63,9 @@ parseRecords :: [Record] -> [(Int,LogType)] -> [Record]
 parseRecords (record:records) [] = (complete record:records)
 parseRecords [] ((guardId,_):logs) = parseRecords [newRecord guardId] logs
 parseRecords records ((logTime, logType):logs)
-    | logType == Awake  = parseRecords (record `appendTime` timeInactive:(tail records))        logs
-    | logType == Asleep = parseRecords (record `appendTime` timeActive:(tail records))          logs
-    | otherwise         = parseRecords ((newRecord logTime):(complete record):(tail records))  logs
+    | logType == Awake  = parseRecords (record `appendTime` timeInactive:(tail records))      logs
+    | logType == Asleep = parseRecords (record `appendTime` timeActive:(tail records))        logs
+    | otherwise         = parseRecords ((newRecord logTime):(complete record):(tail records)) logs
     where record        = head records
           timeActive    = take elapsedTime $ awakes
           timeInactive  = take elapsedTime $ asleeps
