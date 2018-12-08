@@ -1,12 +1,14 @@
 module Main where
 import Data.List
 
+-- Example: "152, 25" -> (152,25)
 parsePoint :: String -> (Int,Int)
 parsePoint s = (x,y)
     where nums = words $ s \\ ","
           x = read (head nums) :: Int
           y = read (head $ tail nums) :: Int
         
+-- Returns the samllest rectangle that contains a set of 2D points.
 gridContainingAll :: [(Int,Int)] -> [(Int,Int)]
 gridContainingAll points = [(x,y) | x <- [xMin..xMax], y <- [yMin..yMax]]
     where xMin = minimum xs
@@ -16,9 +18,12 @@ gridContainingAll points = [(x,y) | x <- [xMin..xMax], y <- [yMin..yMax]]
           xs   = map fst points
           ys   = map snd points
 
+-- Returns the Manhattan Distance between two 2D points.
 distanceFrom :: (Int,Int) -> (Int,Int) -> Int
 distanceFrom (x1,y1) (x2,y2) = (abs(x1-x2) + abs(y1-y2))
 
+-- Returns the a set containing points that are closest to a target point.
+-- If two or more points are equally close, they will all be in the set.
 sumDistanceFromAll :: [(Int,Int)] -> (Int,Int) -> Int
 sumDistanceFromAll points target = sum $ map (distanceFrom target) points
 
