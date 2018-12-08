@@ -7,11 +7,12 @@ awakes  = (repeat 0)
 asleeps = (repeat 1)
 
 data LogType = GuardId | Awake | Asleep deriving (Eq,Show)
+type Log = (Int,LogType)
 
 parseId :: String -> Int
 parseId log = read $ tail ((words log) !! 3) ::Int
 
-parseLog :: String -> (Int,LogType)
+parseLog :: String -> Log
 parseLog log
     | startsShift = (parseId   log, GuardId)
     | fallsAsleep = (parseTime log, Asleep)
@@ -59,7 +60,7 @@ parseTime log
     | otherwise = (read (head $ tail $ splitOn ":" time) ::Int)
     where time = (head $ tail $ words log) \\ "]"
 
-parseRecords :: [Record] -> [(Int,LogType)] -> [Record]
+parseRecords :: [Record] -> [Log] -> [Record]
 parseRecords (record:records) [] = (complete record:records)
 parseRecords [] ((guardId,_):logs) = parseRecords [newRecord guardId] logs
 parseRecords records ((logTime, logType):logs)

@@ -2,12 +2,14 @@ module Main where
 import Data.List
 import Data.List.Split
 
+type Point = (Int,Int)
+
 -- Exapmle ["123", "987"] -> (123,987)
-toTuple :: [String] -> (Int,Int)
+toTuple :: [String] -> Point
 toTuple [x,y] = ((read x::Int),(read y::Int))
 
 -- Example ["#7","@","49,222:","19x20"] -> (49,222)
-parseIndex :: [String] -> (Int,Int)
+parseIndex :: [String] -> Point
 parseIndex (_:_:index:_) = toTuple $ splitOn "," $ index \\ ":"
 
 -- Example ["#7","@","49,222:","19x20"] -> (19,20)
@@ -19,7 +21,7 @@ parseId :: [String] -> Int
 parseId (id:_) = read (id \\ "#")
 
 -- Example ["#7","@","49,222:","19x20"] -> (7, [(49,222), (19,20)])
-parseClaim :: [String] -> (Int,[(Int,Int)])
+parseClaim :: [String] -> (Int,[Point])
 parseClaim claim = (id, [index, dimensions])
     where
     id = parseId claim
