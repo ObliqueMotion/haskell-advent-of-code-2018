@@ -24,4 +24,4 @@ maximumByDim :: Int -> (Point,Int)
 maximumByDim d = maximumBy (comparing snd) $ map sumPowerSquare $ map (map powerLevelOf) $ map (squareGrid d) $ squareGrid (301-d) (11,1)
 
 main = do
-    print $ fst $ maximumByDim 3
+    print $ maximumBy (comparing (snd.snd)) $ zip [1..15] $ map maximumByDim [1..15]
