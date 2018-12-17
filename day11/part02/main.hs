@@ -1,6 +1,7 @@
 module Main where
 import Data.Ord (comparing)
 import Data.List
+import Control.Parallel.Strategies
 
 type Point = (Int,Int)
 serialNumber = 2187
@@ -21,7 +22,7 @@ sumPowerSquare powers = ((xMin,yMin),sumPower)
           sumPower = sum $ map snd powers
 
 maximumByDim :: Int -> (Point,Int)
-maximumByDim d = maximumBy (comparing snd) $ map sumPowerSquare $ map (map powerLevelOf) $ map (squareGrid d) $ squareGrid (301-d) (11,1)
+maximumByDim d = maximumBy (comparing snd) $ parMap rseq (sumPowerSquare . (map powerLevelOf) . (squareGrid d)) $ squareGrid (301-d) (11,1)
 
 main = do
-    print $ maximumBy (comparing (snd.snd)) $ zip [1..15] $ map maximumByDim [1..15]
+    print $ maximumBy (comparing (snd.snd)) $ zip [2..13] $ parMap rseq maximumByDim [2..13]
